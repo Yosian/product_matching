@@ -59,11 +59,7 @@ model = Sequential([
 model.compile(optimizer='adam', loss='mse')
 model.fit(padded_sequences, padded_sequences, epochs=10, batch_size=32)
 
-# 3. Train a similarity scoring model (e.g., cosine similarity)
-# In this case, cosine similarity is a measure, not a model, so there's no need to train it.
-
-# 4. Evaluate the model and threshold for matching products
-# You'll need labeled data to evaluate the model, so split your dataset into a training and testing set
+# Evaluate the model and threshold for matching products
 train_data, test_data = train_test_split(df, test_size=0.2, random_state=42)
 
 # Create embeddings for the test samples
@@ -78,7 +74,8 @@ similarity_matrix = cosine_similarity(test_embeddings)
 similarity_threshold = 0.8
 
 # Apply the threshold to the similarity_matrix and compare with the ground truth
-# Assuming test_data has a boolean column named 'same_product' which is True if the products are the same and False otherwise
+# Assuming test_data has a boolean column named 'same_product' which is True if the
+# products are the same and False otherwise
 predicted_same_product = similarity_matrix >= similarity_threshold
 true_same_product = np.array(test_data['same_product'])
 
